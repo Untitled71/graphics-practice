@@ -62,7 +62,8 @@ HW1a::HW1a(const QGLFormat &glf, QWidget *parent)
 void
 HW1a::initializeGL()
 {
-	// PUT YOUR CODE HERE
+	glClearColor(0.0f, 0.0f, 0.0f, 0.0f); //make the background black
+	glColor3f(1.0F, 1.0f, 1.0f); //make the foreground white
 }
 
 
