@@ -66,8 +66,10 @@ HW1a::initializeGL()
 	glColor3f(1.0F, 1.0f, 1.0f); //make the foreground white
 }
 
+// still have to do the aspect ratio properly and as well do the actual order that they want in the example
 
-
+int windowWidth;
+int windowHeight;
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // HW1a::resizeGL:
 //
@@ -77,7 +79,16 @@ HW1a::initializeGL()
 void
 HW1a::resizeGL(int w, int h)
 {
+	windowWidth = w;
+	windowHeight = h;
+
+
 	// PUT YOUR CODE HERE
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+
+	glOrtho(-1, 1, -1, 1, -1.0, 1.0);
+
 }
 
 
@@ -90,6 +101,26 @@ HW1a::resizeGL(int w, int h)
 void
 HW1a::paintGL()
 {
+	glClear(GL_COLOR_BUFFER_BIT);
+
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+
+	int currMode = 0;
+	for (int i = 0; i < 3; i++) {
+		for (int j = 0; j < 3; j++) {
+			glViewport(windowWidth - (i + 1) * windowWidth / 3, windowHeight - (j + 1) * windowHeight / 3, windowWidth / 3, windowHeight / 3);
+
+
+			glBegin(DrawModes[currMode]);
+			currMode += 1;
+			for (int i = 0; i < (std::size(Vertices)); i += 2) {
+				glVertex2f(Vertices[i], Vertices[i + 1]);
+			}
+			glEnd();
+
+		}
+	}
 	// PUT YOUR CODE HERE
 }
 
