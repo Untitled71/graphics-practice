@@ -66,7 +66,6 @@ HW1a::initializeGL()
 	glColor3f(1.0F, 1.0f, 1.0f); //make the foreground white
 }
 
-// still have to do the aspect ratio properly and as well do the actual order that they want in the example
 
 int windowWidth;
 int windowHeight;
@@ -83,11 +82,22 @@ HW1a::resizeGL(int w, int h)
 	windowHeight = h;
 
 
-	// PUT YOUR CODE HERE
+	// compute aspect ratio
+	float xmax, ymax;
+	float ar = (float)w / h;
+	if (ar > 1.0) {		
+		xmax = ar;
+		ymax = 1.;
+	}
+	else {		
+		xmax = 1.;
+		ymax = 1 / ar;
+	}
+
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 
-	glOrtho(-1, 1, -1, 1, -1.0, 1.0);
+	glOrtho(-xmax, xmax, -ymax, ymax, -1.0, 1.0);
 
 }
 
@@ -106,19 +116,19 @@ HW1a::paintGL()
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 
-	int VertexNum = std::size(Vertices)
+	int VertexNum = std::size(Vertices);
 	int currMode = 0;
 
 	for (int i = 0; i < 3; i++) {
 		for (int j = 0; j < 3; j++) {
-			glViewport((i) * windowWidth / 3, (j) * windowHeight / 3, windowWidth / 3, windowHeight / 3);
+			glViewport(j * windowWidth / 3, i * windowHeight / 3, windowWidth / 3, windowHeight / 3);
 
 
 			glBegin(DrawModes[currMode]);
 			currMode += 1;
 
 			for (int k = 0; k < VertexNum; k += 2) {
-				glVertex2f(Vertices[i], Vertices[i + 1]);
+				glVertex2f(Vertices[k], Vertices[k + 1]);
 			}
 
 			glEnd();
