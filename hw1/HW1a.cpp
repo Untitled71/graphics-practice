@@ -106,22 +106,27 @@ HW1a::paintGL()
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 
+	int VertexNum = std::size(Vertices)
 	int currMode = 0;
+
 	for (int i = 0; i < 3; i++) {
 		for (int j = 0; j < 3; j++) {
-			glViewport(windowWidth - (i + 1) * windowWidth / 3, windowHeight - (j + 1) * windowHeight / 3, windowWidth / 3, windowHeight / 3);
+			glViewport((i) * windowWidth / 3, (j) * windowHeight / 3, windowWidth / 3, windowHeight / 3);
 
 
 			glBegin(DrawModes[currMode]);
 			currMode += 1;
-			for (int i = 0; i < (std::size(Vertices)); i += 2) {
+
+			for (int k = 0; k < VertexNum; k += 2) {
 				glVertex2f(Vertices[i], Vertices[i + 1]);
 			}
+
 			glEnd();
 
 		}
 	}
-	// PUT YOUR CODE HERE
+
+
 }
 
 
