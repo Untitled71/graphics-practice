@@ -90,6 +90,21 @@ void
 HW1b::paintGL()
 {
 	// PUT YOUR CODE HERE
+	glClear(GL_COLOR_BUFFER_BIT);
+
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+	int i, k = 0;
+	int colorArrSize = m_colors.size();
+		for (i = 0; i < colorArrSize; i++) {
+			glBegin(GL_TRIANGLES);
+			glColor3f(m_colors[i][0], m_colors[i][1], m_colors[i][2]);
+			for (k = i; k < i + 3; ++k) {
+				glVertex2f(m_points[k][0], m_points[k][1]);
+			}
+			glEnd();
+
+		}
 }
 
 
@@ -226,7 +241,18 @@ HW1b::initBuffers()
 void
 HW1b::divideTriangle(vec2 a, vec2 b, vec2 c, int count)
 {
-	// PUT YOUR CODE HERE
+	if (count <= 0) {
+		triangle(a, b, c);
+		return;
+	}
+	vec2 abHalf = vec2((a[0] + b[0]) / 2.0, (a[1] + b[1]) / 2.0);
+	vec2 acHalf = vec2((a[0] + c[0]) / 2.0, (a[1] + c[1]) / 2.0);
+	vec2 bcHalf = vec2((b[0] + c[0]) / 2.0, (b[1] + c[1]) / 2.0);
+	divideTriangle(a, abHalf, acHalf, count - 1);
+	divideTriangle(abHalf, bcHalf, b, count - 1);
+	divideTriangle(acHalf, bcHalf, c, count - 1);
+	divideTriangle(abHalf, acHalf, bcHalf, count - 1);
+
 }
 
 

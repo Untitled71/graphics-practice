@@ -118,16 +118,16 @@ HW1a::paintGL()
 
 	int VertexNum = std::size(Vertices);
 	int currMode = 0;
-
-	for (int i = 0; i < 3; i++) {
-		for (int j = 0; j < 3; j++) {
+	int i, j, k = 0;
+	for (i = 0; i < 3; i++) {
+		for (j = 0; j < 3; j++) {
 			glViewport(j * windowWidth / 3, i * windowHeight / 3, windowWidth / 3, windowHeight / 3);
 
 
 			glBegin(DrawModes[currMode]);
 			currMode += 1;
 
-			for (int k = 0; k < VertexNum; k += 2) {
+			for (k = 0; k < VertexNum; k += 2) {
 				glVertex2f(Vertices[k], Vertices[k + 1]);
 			}
 
