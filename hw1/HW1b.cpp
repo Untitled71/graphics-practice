@@ -99,7 +99,7 @@ HW1b::paintGL()
 		for (i = 0; i < colorArrSize; i++) {
 			glBegin(GL_TRIANGLES);
 			glColor3f(m_colors[i][0], m_colors[i][1], m_colors[i][2]);
-			for (k = i; k < i + 3; ++k) {
+			for (k = i*3; k < i*3 + 3; ++k) {
 				glVertex2f(m_points[k][0], m_points[k][1]);
 			}
 			glEnd();
@@ -249,9 +249,9 @@ HW1b::divideTriangle(vec2 a, vec2 b, vec2 c, int count)
 	vec2 acHalf = vec2((a[0] + c[0]) / 2.0, (a[1] + c[1]) / 2.0);
 	vec2 bcHalf = vec2((b[0] + c[0]) / 2.0, (b[1] + c[1]) / 2.0);
 	divideTriangle(a, abHalf, acHalf, count - 1);
-	divideTriangle(abHalf, bcHalf, b, count - 1);
+	divideTriangle(abHalf, b, bcHalf, count - 1);
 	divideTriangle(acHalf, bcHalf, c, count - 1);
-	divideTriangle(abHalf, acHalf, bcHalf, count - 1);
+	divideTriangle(abHalf, bcHalf, acHalf, count - 1);
 
 }
 
