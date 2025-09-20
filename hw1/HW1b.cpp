@@ -249,9 +249,9 @@ HW1b::divideTriangle(vec2 a, vec2 b, vec2 c, int count)
 	vec2 acHalf = vec2((a[0] + c[0]) / 2.0, (a[1] + c[1]) / 2.0);
 	vec2 bcHalf = vec2((b[0] + c[0]) / 2.0, (b[1] + c[1]) / 2.0);
 	divideTriangle(a, abHalf, acHalf, count - 1);
-	divideTriangle(abHalf, b, bcHalf, count - 1);
-	divideTriangle(acHalf, bcHalf, c, count - 1);
-	divideTriangle(abHalf, bcHalf, acHalf, count - 1);
+	divideTriangle(b, abHalf, bcHalf, count - 1);
+	divideTriangle(c, acHalf, bcHalf, count - 1);
+	divideTriangle(acHalf, abHalf, bcHalf, count - 1);
 
 }
 
